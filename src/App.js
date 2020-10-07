@@ -78,6 +78,7 @@ function App() {
         .call()
         .then(function (result) {
           console.log(result);
+          setQuote(result.currentQuote);
         });
     }
   };
@@ -122,7 +123,7 @@ function App() {
       try {
         let gasLimit = await contract.methods
           .executeMetaTransaction(userAddress, functionData, r, s, v)
-          .estimateGas({ from: userAddress });
+          .estimateGas();
         let gasPrice = await web3.eth.getGasPrice();
         console.log(gasLimit);
         console.log(gasPrice);
@@ -179,8 +180,9 @@ function App() {
 
   return (
     <div className="App">
+      {quote}
       <button onClick={getQuoteFromNetwork}>getQuoteFromNetwork</button>
-      <button onClick={getQuoteFromNetwork}>getQuoteFromNetwork</button>
+      <button onClick={setQuoteOnNetwork}>setQuoteOnNetwork</button>
       <button onClick={setQuoteViaMetaTX}>setQuoteViaMetaTX</button>
     </div>
   );
